@@ -1,0 +1,2 @@
+module Api::ComadsHelper
+end
