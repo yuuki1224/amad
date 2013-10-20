@@ -1,5 +1,33 @@
 class Api::ComadsController < ApplicationController
   def get_comads_list
+    @user = User.find(1)
+    
+    @comads = Comad.find(:all)
+    @group_comads = [] 
+    @will_comads = []
+    @normal_comads = []
+
+    @comads.each do |comad|
+      if comad.is_group
+        @group_comads.push(comad)
+      else
+        @attend_comad_list = Comad::ComadUser.find(:all)
+        @attend_comad_list.each do |attend|
+          if attend.user_id == @user.id && comad.id == attend.comad_id
+            @will_comads.push(comad)
+          end
+        end
+        @normal_comads.push(comad)
+      end
+    end
+
+    @json = {}
+    @json[:will] = @will_comads
+    @json[:group] = @group_comads
+    @json[:comad] = @normal_comads
+
+    render :json => @json
+=begin
     @will_comads = {}
     @will_comads[:name] = ["足立壮大","小林大志"]
     @will_comads[:image] = ["adachi.png","kobayashi.png"]
@@ -54,7 +82,7 @@ class Api::ComadsController < ApplicationController
       @comad[:attend_friends] = @comads[:attend_friends][i]
       @json[:comad].push(@comad)
     end
-    render :json => @json
+=end
   end
 
   def create_comad

@@ -4,6 +4,8 @@ class CreateComads < ActiveRecord::Migration
       t.string :name
       t.string :location
       t.integer :organizer_id
+      t.integer :group_id
+      t.string :image_name
       t.datetime :start_time
       t.datetime :end_time
       t.boolean :wifi

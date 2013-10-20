@@ -1,0 +1,13 @@
+class InsertComad < ActiveRecord::Migration
+  def change
+    c=Comad.find_or_create_by_id(1);c.update_attributes({ :name => '足立壮大', :location => '烏丸のスタバ', :organizer_id => 2, :image_name => 'adachi.png',  :start_time => '2013-10-20 13:00:00', :end_time => '2013-10-20 17:00:00', :wifi => false, :power_source => true, :limit => 3, :is_group => false})
+    c=Comad.find_or_create_by_id(2);c.update_attributes({ :name => '小林大志', :location => '寒梅館', :organizer_id => 8, :image_name => 'kobayashi.png', :start_time => '2013-10-21 13:00:00', :end_time => '2013-10-21 17:00:00', :wifi => true, :power_source => false, :limit => 3, :is_group => false})
+    c=Comad.find_or_create_by_id(3);c.update_attributes({ :name => '猛者会', :location => 'グランフロント大阪', :group_id => 4, :image_name => 'picola.png', :start_time => '2013-10-22 13:00:00', :end_time => '2013-10-22 17:00:00', :wifi => true, :power_source => true, :limit => 5, :is_group => true})
+    c=Comad.find_or_create_by_id(4);c.update_attributes({ :name => 'Campus', :location => 'オフィス', :group_id => 2, :image_name => 'campus.png', :start_time => '2013-10-24 11:00:00', :end_time => '2013-10-24 17:00:00', :wifi => true, :power_source => true, :limit => 5, :is_group => true})
+    c=Comad.find_or_create_by_id(5);c.update_attributes({ :name => '中川峰志', :location => 'BKC', :organizer_id => 3, :image_name => 'nakagawa.png', :start_time => '2013-10-25 13:00:00', :end_time => '2013-10-25 17:00:00', :wifi => true, :power_source => true, :limit => 5, :is_group => false})
+    c=Comad.find_or_create_by_id(6);c.update_attributes({ :name => '松本凌', :location => '楽洛堂', :organizer_id => 6, :image_name => 'matsumoto.png', :start_time => '2013-10-27 13:00:00', :end_time => '2013-10-27 17:00:00', :wifi => true, :power_source => true, :limit => 5, :is_group => false})
+    c=Comad.find_or_create_by_id(7);c.update_attributes({ :name => '佐藤大輔', :location => '枚方のマクド', :organizer_id => 5, :image_name => 'sato.png', :start_time => '2013-10-28 13:00:00', :end_time => '2013-10-28 17:00:00', :wifi => true, :power_source => true, :limit => 5, :is_group => false})
+    c=Comad.find_or_create_by_id(8);c.update_attributes({ :name => '村田温美', :location => '寒梅館', :organizer_id => 7, :image_name => 'murata.png', :start_time => '2013-10-25 13:00:00', :end_time => '2013-10-25 17:00:00', :wifi => true, :power_source => true, :limit => 5, :is_group => false})
+    c=Comad.find_or_create_by_id(9);c.update_attributes({ :name => '小林大志', :location => '田辺', :organizer_id => 8, :image_name => 'kobayashi.png', :start_time => '2013-10-25 13:00:00', :end_time => '2013-10-25 17:00:00', :wifi => true, :power_source => true, :limit => 5, :is_group => false})
+  end
+end

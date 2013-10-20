@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020125311) do
+ActiveRecord::Schema.define(version: 20131020133443) do
 
   create_table "comad_users", force: true do |t|
     t.integer  "comad_id"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20131020125311) do
     t.string   "name"
     t.string   "location"
     t.integer  "organizer_id"
+    t.integer  "group_id"
+    t.string   "image_name"
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "wifi"
