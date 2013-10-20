@@ -5,43 +5,30 @@ class Api::FriendsController < ApplicationController
   end
 
   def get_friends_list
-    @user_id = params[:user_id]
+    # @user = User.find(params[:user_id])
+    @user = User.find(1)
+    @friend_ids = User::Friend.where( :user_id => @user.id )
+    @friends = []
+    @friend_ids.each do |id|
+      @friend = User.find(id.friend_user_id)
+      @friends.push(@friend)
+    end
+    # 上から2個を消す
+    @new = @friends.slice(0,2)
+    @friends = @friends.slice(2,6)
 
-    @me_name = "浅野友希"
-    @me_image = "asano.png"
-
-    @new_user_names = ["足立壮大","中川峰志"]
-    @new_user_images = ["adachi.png","nakagawa.png"]
-
-    @user_names = ["吉田万輝","佐藤大輔","松本凌","村田温美","小林大志"]
-    @user_images = ["yoshida.png","sato.png","matsumoto.png","murata.png","kobayashi.png"]
-
-    @group_names = ["楽洛堂","Campus","カンファー","猛者会","あんさんぶる"]
-    @group_images = ["bosscolle.png","campus.png","picola.png","arduino.png","kimisaki.png"]
+    @group_ids = Group::GroupUser.where( :user_id => @user.id )
+    @groups = []
+    @group_ids.each do |id|
+      @group = Group.find(id.group_id)
+      @groups.push(@group)
+    end
 
     @json = {}
-    @json[:me] = {:name => @me_name, :userId => 1, :imageName => @me_image}
-
-    @json[:new] = [] 
-    2.times do |i|
-      user_id = i + 1
-      @user = {:name => @new_user_names[i], :userId => user_id, :imageName => @new_user_images[i]}
-      @json[:new].push(@user)
-    end
-
-    @json[:groups] = []
-    5.times do |i|
-      group_id = i + 1
-      @group = {:name => @group_names[i], :groupId => group_id, :imageName => @group_images[i]}
-      @json[:groups].push(@group)
-    end
-
-    @json[:friends] = []
-    5.times do |i|
-      user_id = i + 4 
-      @user = {:name => @user_names[i], :userId => user_id, :imageName => @user_images[i]}
-      @json[:friends].push(@user)
-    end
+    @json[:me] = @user
+    @json[:new] = @new
+    @json[:friends] = @friends
+    @json[:groups] = @groups
 
     render :json => @json
   end
