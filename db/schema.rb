@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020133443) do
+ActiveRecord::Schema.define(version: 20131110170307) do
+
+  create_table "comad_locations", force: true do |t|
+    t.string   "name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comad_users", force: true do |t|
     t.integer  "comad_id"
@@ -58,15 +66,28 @@ ActiveRecord::Schema.define(version: 20131020133443) do
     t.datetime "updated_at"
   end
 
+  create_table "user_settings", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
-    t.string   "name",                   default: "", null: false
-    t.string   "image_name",             default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "name",                             default: "", null: false
+    t.string   "image_name",                       default: "", null: false
+    t.string   "comad_id",                         default: "", null: false
+    t.string   "occupation",                       default: "", null: false
+    t.string   "description",                      default: "", null: false
+    t.string   "question1",                        default: "", null: false
+    t.string   "question2",                        default: "", null: false
+    t.string   "question3",                        default: "", null: false
+    t.string   "question4",                        default: "", null: false
+    t.integer  "uid",                    limit: 8
+    t.string   "access_token"
+    t.string   "email",                            default: "", null: false
+    t.string   "encrypted_password",               default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                    default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"

@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/*
+ * Common Styling
+ *
+ * Copyright(c) Campus Inc. All Rights Reserved.
+ *
+ * /
+
+/*===========================================================
+ 0. reset + base
+ ===========================================================*/
+
+body, div, dl, dt, dd, ul, ol, li,
+h1, h2, h3, h4, h5, h6,
+object, iframe, pre, code, p, blockquote,
+form, fieldset, legend,
+table, th, td, caption, tbody, tfoot, thead,
+article, aside, figure, footer, header,
+hgroup, menu, nav, section, audio, video, canvas {
+    margin: 0;
+    padding: 0;
+}
+article, aside, figure, figcaption,footer,
+h1, h2, h3, h4, h5, h6, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    color: #555;
+    font-family: "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴ Pro W3", Osaka,"MS P Gothic", "ＭＳ Ｐゴシック", sans-serif;
+    font-size: 78%;
+    line-height: 1.6;
+    word-break: break-all;
+    background: url(../images/common/bg_body.png) repeat left top; 
+}
+a { color: #333; }
+a:link, a:visited { text-decoration: none; }
+a:hover, a:active  { text-decoration: underline; }
+
+:selection {
+    text-shadow: none !important;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: black;
+    font-size: 100%;
+    font-weight: normal;
+}
+
+li { list-style: none; }
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 100%;
+    font-family: inherit;
+}
+caption, th, td {
+    text-align: left;
+    vertical-align: top;
+    font-weight: normal;
+}
+fieldset { border: none; }
+input, textarea, select, label {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: middle;
+}
+label { cursor: pointer; }
+textarea { overflow: auto; }
+legend { display: none; }
+img {
+    border: none;
+    vertical-align: top;
+}
+object {
+    vertical-align: middle;
+    outline: none;
+}
+em, strong {
+    font-weight: bold;
+    font-style: normal;
+}
+small { font-size: 100%; }
+abbr, acronym {
+    border: none;
+    font-variant: normal;
+}
+q:before, q:after { content: ''; }
+address, caption, cite, code, dfn, var {
+    font-weight: normal;
+    font-style: normal;
+}
+code, pre { font-family: monospace; }
+sup { vertical-align: text-top; }
+sub { vertical-align: text-bottom; }
+hr { display: none; }
+
+

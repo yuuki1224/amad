@@ -1,3 +1,25 @@
 // Place all the styles related to the index controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  text-align: center;
+  height: 1000px;
+}
+
+.loginTitle {
+  width: 150px;
+  height: 50px; 
+  margin-top: 170px;
+  text-align: center;
+}
+
+.catchPhrase {
+  margin-top: 57px;
+  font-size: 17px; 
+  font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro';
+}
+
+.loginBtn {
+  margin-top: 15px;
+}
+

@@ -3,6 +3,15 @@ class DeviseCreateUsers < ActiveRecord::Migration
     create_table(:users) do |t|
       t.string :name,               :null => false, :default => ""
       t.string :image_name,         :null => false, :default => ""
+      t.string :comad_id,           :null => false, :default => ""
+      t.string :occupation,         :null => false, :default => ""
+      t.string :description,        :null => false, :default => ""
+      t.string :question1,          :null => false, :default => ""
+      t.string :question2,          :null => false, :default => ""
+      t.string :question3,          :null => false, :default => ""
+      t.string :question4,          :null => false, :default => ""
+      t.integer :uid, :limit => 8
+      t.string :access_token
 
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
@@ -13,7 +22,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :reset_password_sent_at
 
       ## Rememberable
-      t.datetime :remember_created_at
+      # t.datetime :remember_created_at
 
       ## Trackable
       t.integer  :sign_in_count, :default => 0, :null => false

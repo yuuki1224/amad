@@ -32,13 +32,42 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development do
+# for debug
+group :test, :development do
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
+
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  gem 'hirb'
+  gem 'hirb-unicode'
+
+  gem 'tapp'
+  gem 'awesome_print'
+  gem 'quiet_assets'
+  gem 'annotate', git: 'git://github.com/ctran/annotate_models.git'
+  gem 'timecop'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_rewinder'
+  gem 'guard-rspec'
 end
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'koala'
+gem 'facebook_chat'
+
 gem 'protected_attributes'
+
+gem 'guard', '>=2.1.0'
+gem 'guard-shell'
+
+gem 'whenever', :require => false
 
 # gem 'pry'
 

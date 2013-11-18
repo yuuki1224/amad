@@ -1,13 +1,32 @@
 Amad::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
   root :to => 'index#index'
+  get 'index/success_login'
+  get 'index/invite_friend'
+
   namespace 'api' do
     get 'friends/index'
     get 'friends/get_friends_list'
     get 'friends/get_groups_list'
     get 'comads/get_comads_list'
     post 'comads/create_comad'
+    get 'comads/attend_comad'
+    get 'user/get_add_friends'
+    put 'user/update_profile'
+    put 'user/update_account'
+    put 'user/update_notification'
+    put 'user/update_mail'
+    get 'user/find_user'
   end
+
+  resources :comads
+
+  devise_scope :user do
+#    get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
+#    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

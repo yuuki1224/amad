@@ -1,7 +1,88 @@
 class User < ActiveRecord::Base
+  require 'json'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :friends
+
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-  attr_accessible :name, :image_name
+        :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  attr_accessible :name, :image_name, :uid, :password, :email, :access_token, :occupation, :comad_id, :description
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"]
+      end
+    end
+  end
+
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.where(:uid => auth.uid).first
+    unless user
+      user = User.create(name: auth.extra.raw_info.name,
+                         image_name: 'asano.png',
+                         uid: auth.uid,
+                         email: auth.extra.raw_info.email,
+                         access_token: auth.credentials.token,
+                         password: Devise.friendly_token[0,20]
+                        )
+    else
+      user[:access_token] = auth.credentials.token
+      user.save!
+    end
+    user
+  end
+
+  def get_comad_users
+    facebook_friends = self.get_friends
+    comad_users = []
+
+    facebook_friends.each do |friend|
+      is_comad_user = User.confirm_using_comad(friend['id'])
+      if is_comad_user
+        comad_users << is_comad_user
+      end
+    end
+    return comad_users
+  end
+
+  def get_friends
+    access_token = self.access_token
+    graph = Koala::Facebook::API.new(access_token)
+    friends = graph.get_connections("me", "friends")
+  end
+
+  def get_friend_image_url(graph, id)
+    url = id + '?fields=picture'
+    picture = graph.get_object(url)
+  end
+
+  def update_profile(name, comad_id, occupation, detail,
+                     question1, question2, question3, question4)
+    self.name = name
+    self.comad_id = comad_id
+    self.occupation = occupation
+    self.description = detail
+    self.question1 = question1
+    self.question2 = question2
+    self.question3 = question3
+    self.question4 = question4
+    self.save
+  end
+
+  def self.confirm_using_comad(id)
+    comad_user = User.where(:uid => id)
+    comad_user.presence
+  end
+
+  def self.to_json(user)
+    user_hash = {:id => user.id,
+                 :name => user.name,
+                 :comadId => user.comad_id,
+                 :occupation => user.occupation,
+                 :detail => user.description,
+                 :imageName => user.image_name}
+    JSON.generate(user_hash)
+  end
 end

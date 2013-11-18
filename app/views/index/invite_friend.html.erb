@@ -1,0 +1,72 @@
+facebook Message
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+// Facebook JavaScript SDK初期化
+FB.init({
+    appId  : '592840844087048',
+    status : true, 
+    cookie : true,
+    xfbml  : true  // parse XFBML
+});
+
+function getWall(){
+    console.log("piyopiyo");
+    /*
+    FB.api('me/feed'
+    , { access_token: 'CAAIbL4PrjwgBABSghXrnAZAochtNZAqqRdnjXTxnco7qAG0n50ZCyXyZCkatzKO3XokC5aqyb76bc2AI4i5DtAtZBFhYZBERK9Nozl46td9tZBEZCIX6xmGfZBIIbUFub75K5rBasnsy1y2ZANQ9IpY1SZC6wmk69akr3vUa35CNIDgkRfD00DLZCS5bZBklPIHUW2CoZD' }
+    , function(response){
+        // 取得後のコールバック
+        var contents = '';
+        for (var i = 0; i < response.data.length; i++) {
+            for (var elem in response.data[i]) {
+                contents += elem + ' : ' + response.data[i][elem] + '<br>';
+            }
+            contents += '<hr>';
+        }
+        // ウォールの内容を表示させる
+        document.getElementById('result').innerHTML = contents;
+      });
+      */
+      /*
+      FB.ui(
+      {
+          method: 'message',
+          message: 'mytestapp',
+          name: 'Test App',
+          caption: '不明?',
+          description: (
+          'テストだよおおおおおおおおおおおおおおおおお！！！！！！' +
+          '眠い！'
+          ),
+          　 link   : $(this).attr('data-url'),
+          　 picture: 'http://intmstat.com/blog/2007/03/lenna.jpg'
+      },
+      function (response) {
+          // If response is null the user canceled the dialog
+          if (response != null) {
+              logResponse(response);
+          }
+      });
+      */
+      FB.ui(
+      { 
+          method: 'send', 
+          to: ['100002490823408'],
+          link: "https://developers.facebook.com",
+          picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/174597_20531316728_2866555_q.jpg"
+      }, 
+      function(param){
+          // If they cancel params will show: 
+          //    {action:false, ...}
+          // and if they send the friend request it'll have:
+          //    {action:true, ...}
+          // and if they closed the pop-up window then:
+          //    param is undefined
+      }
+      );
+}
+</script>
+<input type="button" value="get wall" onclick="getWall();">
+<div id="result"></div>
+
