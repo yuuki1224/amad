@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110170307) do
+ActiveRecord::Schema.define(version: 20131123080452) do
 
   create_table "comad_locations", force: true do |t|
     t.string   "name"
@@ -29,17 +29,21 @@ ActiveRecord::Schema.define(version: 20131110170307) do
   end
 
   create_table "comads", force: true do |t|
-    t.string   "name"
-    t.string   "location"
+    t.string   "title"
     t.integer  "organizer_id"
+    t.string   "location"
     t.integer  "group_id"
     t.string   "image_name"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.boolean  "wifi"
-    t.boolean  "power_source"
-    t.integer  "limit"
+    t.datetime "date_time"
+    t.string   "tense"
     t.boolean  "is_group"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "conversations", force: true do |t|
+    t.integer  "younger_user_id"
+    t.integer  "older_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,6 +59,7 @@ ActiveRecord::Schema.define(version: 20131110170307) do
     t.string   "name"
     t.string   "image_name"
     t.text     "description"
+    t.integer  "message_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

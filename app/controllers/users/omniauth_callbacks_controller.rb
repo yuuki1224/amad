@@ -5,7 +5,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     comad_users = @user.get_comad_users
     @user_json = User.to_json(@user)
 
-    binding.pry
     if @user.persisted?
       session[:hoge] = @user.id 
       # 認証成功ページ

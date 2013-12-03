@@ -3,8 +3,6 @@ class Api::FriendsController < ApplicationController
   end
 
   def get_friends_list
-    # @user = User.find(params[:user_id])
-    @user = User.find(1)
     @user_friends = @user.friends
     @friends = []
     @user_friends.each do |id|
@@ -13,7 +11,7 @@ class Api::FriendsController < ApplicationController
     end
     # 上から2個を消す
     @new = @friends.slice(0,2)
-    @friends = @friends.slice(2,6)
+    @friends = @friends.slice(0,6)
 
     @group_ids = Group::GroupUser.where( :user_id => @user.id )
     @groups = []
@@ -29,6 +27,12 @@ class Api::FriendsController < ApplicationController
     @json[:groups] = @groups
 
     render :json => @json
+  end
+
+  def add_friend
+    friend = User.find_by_id(params[:friend_id])
+    User::Friend.add_friend(@user.id, friend.id)
+    render :json => @user 
   end
 
   def get_groups_list

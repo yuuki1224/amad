@@ -4,6 +4,7 @@ class CreateGroups < ActiveRecord::Migration
       t.string :name
       t.string :image_name
       t.text :description
+      t.integer :message_id
 
       t.timestamps
     end

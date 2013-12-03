@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :friends
 
+  has_many :group_users, :class_name => 'Group::GroupUser'
+  has_many :groups, :class_name => 'Group', through: :group_users, :source => :group
+  attr_accessible :group_ids
+
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   attr_accessible :name, :image_name, :uid, :password, :email, :access_token, :occupation, :comad_id, :description

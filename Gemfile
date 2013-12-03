@@ -67,7 +67,7 @@ gem 'protected_attributes'
 gem 'guard', '>=2.1.0'
 gem 'guard-shell'
 
-gem 'whenever', :require => false
+gem 'redis-objects'
 
 # gem 'pry'
 

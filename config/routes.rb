@@ -9,6 +9,7 @@ Amad::Application.routes.draw do
     get 'friends/index'
     get 'friends/get_friends_list'
     get 'friends/get_groups_list'
+    get 'friends/add_friend'
     get 'comads/get_comads_list'
     post 'comads/create_comad'
     get 'comads/attend_comad'
@@ -18,6 +19,7 @@ Amad::Application.routes.draw do
     put 'user/update_notification'
     put 'user/update_mail'
     get 'user/find_user'
+    post 'group/create_group'
   end
 
   resources :comads
