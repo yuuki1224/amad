@@ -6,6 +6,7 @@ class Api::ComadsController < ApplicationController
     @user.friends.each do |user_friend|
       user_friend_ids << user_friend.friend_user_id
     end
+    user_friend_ids << @user.id
 
     groups = @user.groups
     group_ids = []
@@ -28,6 +29,7 @@ class Api::ComadsController < ApplicationController
       end
       
       new_json = {
+        id: new_comad.id,
         name: new_comad.user.name,
         imageName: new_comad.user.image_name,
         comadId: new_comad.user.comad_id,
@@ -51,6 +53,7 @@ class Api::ComadsController < ApplicationController
       end
       
       date_json = {
+        id: date_comad.id,
         name: date_comad.user.name,
         imageName: date_comad.user.image_name,
         comadId: date_comad.user.comad_id,
@@ -83,25 +86,19 @@ class Api::ComadsController < ApplicationController
   end
 
   def create_comad
-    binding.pry
     @start_time = params[:start_time]
-    @until_time = params[:end_time]
     @location = params[:location]
-    @limit = params[:limit]
     @detail = params[:detail]
-    @wifi = params[:wifi] == '1' ? true : false
-    @power = params[:power_source] == '1' ? true : false
+    @time_select = params[:timeSelect]
 
     comad = Comad.create(:name => @user.name,
-                         :location => @location,
+                         :title => @detail,
                          :organizer_id => @user.id,
+                         :location => @location,
                          :image_name => @user.image_name,
-                         :start_time => @start_time.to_datetime,
-                         :end_time => @until_time.to_datetime,
-                         :limit => @limit[0],
-                         :is_group => false,
-                         :wifi => @wifi,
-                         :power_source => @power)
+                         :date_time => @start_time.to_datetime,
+                         :tense => @time_select,
+                         :is_group => false)
     render :json => comad 
   end
 

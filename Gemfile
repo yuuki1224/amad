@@ -69,6 +69,9 @@ gem 'guard-shell'
 
 gem 'redis-objects'
 
+gem 'aws-sdk'
+gem 'capistrano'
+
 # gem 'pry'
 
 # Use ActiveModel has_secure_password

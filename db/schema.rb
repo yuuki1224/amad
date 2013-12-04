@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123080452) do
+ActiveRecord::Schema.define(version: 20131204134553) do
 
   create_table "comad_locations", force: true do |t|
     t.string   "name"
