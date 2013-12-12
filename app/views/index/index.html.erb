@@ -1,3 +1,30 @@
-<%= image_tag '/images/loginTitle.png', :border => '0', :alt => 'タイトル', :class => 'loginTitle' %>
-<p class="catchPhrase">さあ、コマドをはじめよう。</p>
-<%= link_to image_tag("/images/facebookBtn.png", {:border => '0', :alt => 'facebookログイン', :width => '165', :height => '31', :class => 'loginBtn'}), user_omniauth_authorize_path(:facebook) %>
+<ul class="jCarousel">
+	<li>
+		<div id="wrapper">
+		<h1><img src="images/aboutLogo.png" alt="COMAD" class="zoom"></h1>
+		<div id="conts">
+			<p class="comment">コマドへようこそ！コマドを使うと、誰かと何かしたい時、簡単に仲間が募れ、そして簡単に仲間を見つけることができます。</p>
+			<p><img src="images/about1.png"  class="zoom"></p>
+		</div>
+		</div>
+	</li>
+	<li>
+		<div id="wrapper">
+		<h1><img src="images/aboutLogo.png" alt="COMAD" class="zoom"></h1>
+		<div id="conts">
+		<p class="comment">色分けされたラベルで、みんながいつ何をするのか一目でわかり、あなたもここで投稿することができます。</p>
+		<p><img src="images/about2.png"  class="zoom"></p>
+		</div>
+		</div>
+	</li>
+	<li>
+		<div id="wrapper">
+		<h1><img src="images/aboutLogo.png" alt="COMAD" class="zoom"></h1>
+		<div id="conts">
+			<p class="comment">そして、いつでもコマドの中に入り、ともだちと会話することができます。</p>
+			<p><img src="images/about3.png"  class="zoom"></p>
+		</div>
+		</div>
+	</li>
+</ul>
+    <p class="loginButton"><a href="/users/auth/facebook"><img src="images/aboutLogin.png" alt="Facebookログイン"  class="zoom"></a></p>

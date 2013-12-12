@@ -1,12 +1,3 @@
-@charset "UTF-8";
-
-/*
- * Common Styling
- *
- * Copyright(c) Campus Inc. All Rights Reserved.
- *
- * /
-
 /*===========================================================
  0. reset + base
  ===========================================================*/
@@ -26,14 +17,14 @@ h1, h2, h3, h4, h5, h6, header, hgroup, menu, nav, section {
     display: block;
 }
 body {
-    color: #555;
-    font-family: "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴ Pro W3", Osaka,"MS P Gothic", "ＭＳ Ｐゴシック", sans-serif;
+    color:#555;
+    font-family:'小塚ゴシック Pro','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',Osaka,sans-serif;
     font-size: 78%;
     line-height: 1.6;
     word-break: break-all;
-    background: url(../images/common/bg_body.png) repeat left top; 
+    background: #ffffff; 
 }
-a { color: #333; }
+a { color: #333; outline: none; }
 a:link, a:visited { text-decoration: none; }
 a:hover, a:active  { text-decoration: underline; }
 
@@ -41,7 +32,6 @@ a:hover, a:active  { text-decoration: underline; }
     text-shadow: none !important;
 }
 h1, h2, h3, h4, h5, h6 {
-    color: black;
     font-size: 100%;
     font-weight: normal;
 }
@@ -67,6 +57,7 @@ input, textarea, select, label {
     font-size: 100%;
     font-family: inherit;
     vertical-align: middle;
+    outline: none;
 }
 label { cursor: pointer; }
 textarea { overflow: auto; }
@@ -98,4 +89,71 @@ sup { vertical-align: text-top; }
 sub { vertical-align: text-bottom; }
 hr { display: none; }
 
+/* モダンブラウザ向け */
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+.clearfix {
+        display: inline-block;
+}
+/* IE-mac \*/
+* html .clearfix {
+        height: 1%;
+}
+.clearfix {
+        display: block;
+}
+/* End IE-mac */
+/*===========================================================
+ 1. layout
+ ===========================================================*/
+body {
+    width: 320px;
+}
+
+div.jCarouselWrapper0 {
+    width: 320px;
+}
+
+.clear {
+    clear:both;
+}
+
+a.block {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+}
+
+.zoom {
+    zoom:0.5;
+}
+/*===========================================================
+ 1. home
+ ===========================================================*/
+#wrapper {
+    height: 280px;
+    width: 320px;
+    padding: 65px 0 0 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
+ .comment {
+    width: 230px;
+    margin: 20px auto;
+ }
+
+ .loginButton {
+    margin: 20px auto;
+    text-align: center;
+ }
+
+#conts {
+    height: 200px;
+}
 
