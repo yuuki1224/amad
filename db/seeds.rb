@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+yml = File.read("#{Rails.root}/db/seeds/#{User.to_s.tableize}.yml")
+list = YAML.load(yml).symbolize_keys
+
+list[User.to_s.tableize.to_sym].each_with_index do |r, index|
+  User.create do |t|
+    r.each do |i, v|
+      t.send "#{i}=",v
+    end
+  end
+end

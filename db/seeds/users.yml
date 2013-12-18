@@ -1,0 +1,17 @@
+users:
+  -
+    name: '浅野友希'
+    email: 'yuuki.1224.softtennis@gmail.com'
+    password: 'yuuki1224'
+    image_name: 'asano.png'
+    occupation: 'エンジニア'
+    comad_id: 'yuuki1224'
+    description: '学生エンジニアです。'
+  -
+    name: '足立壮大'
+    email: 'adachi@gmail.com'
+    password: 'tkhrhogeeeeeeeeeeee'
+    image_name: 'adachi.png'
+    occupation: 'エンジニア'
+    comad_id: 'hoge'
+    description: 'piyo'

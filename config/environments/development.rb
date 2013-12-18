@@ -27,9 +27,4 @@ Amad::Application.configure do
   # number of complex assets.
   config.assets.debug = true
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-
-  # OAuth
-  Devise.setup do |config|
-    config.omniauth :facebook, '544248735657544', '25173e9a2c7b02c6ec7e6bfe4b2e4b45', :scope => 'email,user_birthday,xmpp_login', :display => 'popup'
-  end
 end

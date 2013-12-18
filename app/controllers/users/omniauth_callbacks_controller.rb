@@ -1,14 +1,10 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)
-
-    comad_users = @user.get_comad_users
+    @user = User.find_for_facebook_oauth(request.env["omniauth.auth"])
     @user_json = User.to_json(@user)
 
     if @user.persisted?
-      session[:hoge] = @user.id 
       # 認証成功ページ
-      # flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
       @status = 200
       render :file => "users/success_login" 
       # redirect_to "index/success_login" 

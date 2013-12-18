@@ -55,6 +55,12 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 0.0.23)
+    capybara (2.2.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.0.9)
@@ -66,6 +72,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
+    database_cleaner (1.2.0)
     database_rewinder (0.0.2)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -264,8 +271,16 @@ GEM
     uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
+    webrat (0.7.3)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
     xmpp4r (0.5.5)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
     yard (0.8.7.2)
+    zeus (0.13.3)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -277,7 +292,9 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   capistrano
+  capybara
   coffee-rails (~> 4.0.0)
+  database_cleaner
   database_rewinder
   devise
   facebook_chat
@@ -290,7 +307,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   koala
-  mysql2
+  mysql2 (~> 0.3.11)
   omniauth
   omniauth-facebook
   protected_attributes
@@ -301,6 +318,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.0.0)
   redis-objects
+  rspec
   rspec-rails
   sass-rails (~> 4.0.0)
   sdoc
@@ -308,3 +326,5 @@ DEPENDENCIES
   timecop
   turbolinks
   uglifier (>= 1.3.0)
+  webrat
+  zeus

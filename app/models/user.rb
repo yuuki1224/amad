@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base
   require 'json'
+  require 'open-uri'
+  require 'pathname'
+  require 'digest/md5'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :friends
-
   has_many :group_users, :class_name => 'Group::GroupUser'
   has_many :groups, :class_name => 'Group', through: :group_users, :source => :group
   attr_accessible :group_ids
@@ -12,31 +14,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   attr_accessible :name, :image_name, :uid, :password, :email, :access_token, :occupation, :comad_id, :description
-
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"]
-      end
-    end
-  end
-
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    user = User.where(:uid => auth.uid).first
-    unless user
-      user = User.create(name: auth.extra.raw_info.name,
-                         image_name: 'asano.png',
-                         uid: auth.uid,
-                         email: auth.extra.raw_info.email,
-                         access_token: auth.credentials.token,
-                         password: Devise.friendly_token[0,20]
-                        )
-    else
-      user[:access_token] = auth.credentials.token
-      user.save!
-    end
-    user
-  end
 
   def get_comad_users
     facebook_friends = self.get_friends
@@ -57,11 +34,6 @@ class User < ActiveRecord::Base
     friends = graph.get_connections("me", "friends")
   end
 
-  def get_friend_image_url(graph, id)
-    url = id + '?fields=picture'
-    picture = graph.get_object(url)
-  end
-
   def update_profile(name, comad_id, occupation, detail,
                      question1, question2, question3, question4)
     self.name = name
@@ -75,18 +47,46 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def self.find_for_facebook_oauth(auth)
+    user = User.where(:uid => auth.uid).first
+    unless user
+      image_url = auth[:info].image
+      dir = Pathname.new './public/images/profile'
+      filename = Digest::MD5.hexdigest(image_url) + '.jpg'
+      filepath = dir + filename
+      FileUtils.mkdir_p(dir) unless FileTest.exist?(dir)
+      open(filepath, 'wb') do |output|
+        open(image_url) do |data|
+          output.write(data.read)
+        end
+      end
+      user = User.create(name: auth.extra.raw_info.name,
+                         image_name: filename,
+                         uid: auth.uid,
+                         email: auth.extra.raw_info.email,
+                         access_token: auth.credentials.token,
+                         password: Devise.friendly_token[0,20]
+                        )
+    else
+      user[:access_token] = auth.credentials.token
+      user.save!
+    end
+    user
+  end
+
   def self.confirm_using_comad(id)
-    comad_user = User.where(:uid => id)
+    comad_user = User.where(:uid => id).first
     comad_user.presence
   end
 
   def self.to_json(user)
+    raise ActiveModel::Errors.new(self) unless user.class == User
     user_hash = {:id => user.id,
                  :name => user.name,
                  :comadId => user.comad_id,
                  :occupation => user.occupation,
                  :detail => user.description,
-                 :imageName => user.image_name}
+                 :image_name => user.image_name}
     JSON.generate(user_hash)
   end
 end

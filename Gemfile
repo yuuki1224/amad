@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # Use mysql as the database for Active Record
-gem 'mysql2'
+gem 'mysql2', "~> 0.3.11"
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -50,10 +50,16 @@ group :test, :development do
   gem 'quiet_assets'
   gem 'annotate', git: 'git://github.com/ctran/annotate_models.git'
   gem 'timecop'
+  gem 'rspec'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'database_rewinder'
   gem 'guard-rspec'
+  gem 'webrat'
+  gem 'capybara'
+  gem 'zeus'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 gem 'devise'
