@@ -1,10 +1,13 @@
 class User::Friend < ActiveRecord::Base
   attr_accessible :user_id, :friend_user_id
-  belongs_to :user
+  # belongs_to :user
+  belongs_to :user, :class_name => "User"
+  belongs_to :friend_user, :class_name => "User"
 
   def self.add_friend(user_id, friend_id)
     younger_id = user_id < friend_id ? user_id : friend_id
     older_id = user_id < friend_id ? friend_id : user_id
+
     # user_idのfriendの中にいないか確認
     user_friend = User::Friend.create(user_id: user_id,
                         friend_user_id: friend_id)

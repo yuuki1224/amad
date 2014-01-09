@@ -1,5 +1,6 @@
 Amad::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  mount Resque::Server, :at => "/resque"
 
   root :to => 'index#index'
   get 'index/success_login'
@@ -10,10 +11,12 @@ Amad::Application.routes.draw do
     get 'friends/get_friends_list'
     get 'friends/get_groups_list'
     get 'friends/add_friend'
+    get 'friends/block_person'
     get 'comads/get_comads_list'
     post 'comads/create_comad'
     get 'comads/attend_comad'
     get 'user/get_add_friends'
+    post 'user/update_image'
     put 'user/update_profile'
     put 'user/update_account'
     put 'user/update_notification'

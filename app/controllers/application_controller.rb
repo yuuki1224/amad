@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
     @user = User.find(params[:user_id]) unless params[:user_id].nil?
     @user = User.find(params[:id]) unless params[:id].nil?
   end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
 end

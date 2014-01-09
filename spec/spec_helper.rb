@@ -1,8 +1,17 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
+ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+
+OmniAuth.config.test_mode = true
+omniauth_hash =
+    {:provider => "facebook",
+     :uid      => "100001962590247",
+     :info   => {:name       => "Asano Yuuki",
+     :email      => "yuuki.1224.softtennis@gmail.com"},
+     :credentials => {:token => "CAAHuZCciO7kgBAHRZChZC0xYro87HZAyqYGHnZA0m2xIuljIs7zMIXZCl4Y0oYSZC9v2FveIhttsrlNbweRc6ZAml6egAcHJl3Xsm6p2yXSokVqseTAY9F5Slwz3atNkQq3eZCRz9jKcZB8PFa1Y7quje6wsCIPphbSCZBgdzEWbZBYZAdmtk5sD8dibD5ZCTBiIx5280ZD"}}
+
+OmniAuth.config.add_mock(:facebook, omniauth_hash)
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -13,6 +22,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+  config.include JsonSpec::Helpers
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -20,7 +31,6 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -39,6 +49,7 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+  config.include Capybara::DSL
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -52,5 +63,19 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  VCR.configure do |c|
+    c.cassette_library_dir = 'spec/vcr'
+    c.hook_into :webmock
+    c.allow_http_connections_when_no_cassette = true
+  end
+
+  # SpecのDescriptionを元にVCRのファイル名を生成する
+  config.around(:each, :vcr) do |example|
+    name = example.metadata[:full_description].split(/\s+/, 2).join("/").underscore.gsub(/[^\w\/]+/, "_")
+    options = example.metadata.slice(:record, :match_requests_on).except(:example_group)
+    options.reverse_merge!(record: :new_episodes)
+    VCR.use_cassette(name, options) { example.call }
   end
 end

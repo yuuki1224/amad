@@ -6,10 +6,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :comad_id,           :null => false, :default => ""
       t.string :occupation,         :null => false, :default => ""
       t.string :description,        :null => false, :default => ""
-      t.string :question1,          :null => false, :default => ""
-      t.string :question2,          :null => false, :default => ""
-      t.string :question3,          :null => false, :default => ""
-      t.string :question4,          :null => false, :default => ""
+      t.string :organization,       :null => false, :default => ""
       t.integer :uid, :limit => 8
       t.string :access_token
 

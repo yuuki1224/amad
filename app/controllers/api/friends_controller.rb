@@ -1,40 +1,28 @@
 class Api::FriendsController < ApplicationController
-  def index
-  end
-
   def get_friends_list
-    @user_friends = @user.friends
-    @friends = []
-    @user_friends.each do |id|
-      @friend = User.find(id.friend_user_id)
-      @friends.push(@friend)
-    end
-    # 上から2個を消す
-    @new = @friends.slice(0,2)
-    @friends = @friends.slice(0,6)
-
-    @group_ids = Group::GroupUser.where( :user_id => @user.id )
-    @groups = []
-    @group_ids.each do |id|
-      @group = Group.find(id.group_id)
-      @groups.push(@group)
-    end
+    # render :nothing => true, :status => 404 if params[:user_id].blank?
+    @friends = @user.friends
+    @user_attributes = @user.attributes
+    @user_attributes.delete('access_token')
+    @user_attributes.delete('encyped_password')
 
     @json = {}
-    @json[:me] = @user
-    @json[:new] = @new
+    @json[:me] = @user_attributes
     @json[:friends] = @friends
-    @json[:groups] = @groups
 
     render :json => @json
   end
 
   def add_friend
-    friend = User.find_by_id(params[:friend_id])
-    User::Friend.add_friend(@user.id, friend.id)
+    # not_found unless params[:user_id].blank?
+    added_friend = User.find_by_id(params[:friend_id])
+    @user.friends << added_friend unless @user.friends.include?(added_friend)
+    added_friend.friends << @user unless added_friend.friends.include?(@user)
     render :json => @user 
   end
 
-  def get_groups_list
+  def block_person
+    # blockする処理追加
+    render :json => @user 
   end
 end

@@ -1,0 +1,97 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://graph.facebook.com/me/friends
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.8
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store
+      Content-Type:
+      - application/json; charset=UTF-8
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "An active access token must be
+        used to query information about the current user."
+      X-Fb-Rev:
+      - '1062230'
+      X-Fb-Debug:
+      - XzyzKMDLB9epc98UJD0atcqzFHQVIPiiiS5gWrExnOE=
+      Date:
+      - Sun, 29 Dec 2013 10:00:19 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '140'
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"An active access token must be used to query information
+        about the current user.","type":"OAuthException","code":2500}}'
+    http_version: 
+  recorded_at: Sun, 29 Dec 2013 10:00:20 GMT
+- request:
+    method: get
+    uri: http://graph.facebook.com/me/friends
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.8.8
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store
+      Content-Type:
+      - application/json; charset=UTF-8
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_request" "An active access token must be
+        used to query information about the current user."
+      X-Fb-Rev:
+      - '1062230'
+      X-Fb-Debug:
+      - N9SNtPtGk7D+GVvfJp8TE/cf/oyfjXr5qZ0P/a/s6XA=
+      Date:
+      - Sun, 29 Dec 2013 10:00:26 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '140'
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"An active access token must be used to query information
+        about the current user.","type":"OAuthException","code":2500}}'
+    http_version: 
+  recorded_at: Sun, 29 Dec 2013 10:00:27 GMT
+recorded_with: VCR 2.8.0

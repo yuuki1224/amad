@@ -15,3 +15,36 @@ list[User.to_s.tableize.to_sym].each_with_index do |r, index|
     end
   end
 end
+
+yml = File.read("#{Rails.root}/db/seeds/#{Comad.to_s.tableize}.yml")
+list = YAML.load(yml).symbolize_keys
+
+list[Comad.to_s.tableize.to_sym].each_with_index do |r, index|
+  Comad.create do |t|
+    r.each do |i, v|
+      t.send "#{i}=",v
+    end
+  end
+end
+
+yml = File.read("#{Rails.root}/db/seeds/#{Conversation.to_s.tableize}.yml")
+list = YAML.load(yml).symbolize_keys
+
+list[Conversation.to_s.tableize.to_sym].each_with_index do |r, index|
+  Conversation.create do |t|
+    r.each do |i, v|
+      t.send "#{i}=",v
+    end
+  end
+end
+
+yml = File.read("#{Rails.root}/db/seeds/#{User::Friend.to_s.tableize}.yml")
+list = YAML.load(yml).symbolize_keys
+
+list[User::Friend.to_s.tableize.to_sym].each do |r|
+  User::Friend.create do |t|
+    r.each do |i, v|
+      t.send "#{i}=",v
+    end
+  end
+end

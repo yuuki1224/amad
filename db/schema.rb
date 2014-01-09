@@ -11,32 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204134553) do
-
-  create_table "comad_locations", force: true do |t|
-    t.string   "name"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "comad_users", force: true do |t|
-    t.integer  "comad_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20140104090722) do
 
   create_table "comads", force: true do |t|
     t.string   "title"
-    t.integer  "organizer_id"
+    t.integer  "user_id"
     t.string   "location"
-    t.integer  "group_id"
     t.string   "image_name"
     t.datetime "date_time"
     t.string   "tense"
-    t.boolean  "is_group"
+    t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,18 +32,9 @@ ActiveRecord::Schema.define(version: 20131204134553) do
     t.datetime "updated_at"
   end
 
-  create_table "group_users", force: true do |t|
-    t.integer  "group_id"
+  create_table "user_blocks", force: true do |t|
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "groups", force: true do |t|
-    t.string   "name"
-    t.string   "image_name"
-    t.text     "description"
-    t.integer  "message_id"
+    t.integer  "block_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,10 +57,7 @@ ActiveRecord::Schema.define(version: 20131204134553) do
     t.string   "comad_id",                         default: "", null: false
     t.string   "occupation",                       default: "", null: false
     t.string   "description",                      default: "", null: false
-    t.string   "question1",                        default: "", null: false
-    t.string   "question2",                        default: "", null: false
-    t.string   "question3",                        default: "", null: false
-    t.string   "question4",                        default: "", null: false
+    t.string   "organization",                     default: "", null: false
     t.integer  "uid",                    limit: 8
     t.string   "access_token"
     t.string   "email",                            default: "", null: false

@@ -1,0 +1,41 @@
+comads:
+  -
+    title: 'ノマドしませんか？'
+    user_id: 2 
+    location: '烏丸のスタバ' 
+    image_name: 'adachi.png'
+    date_time: '2013-10-20 13:00'
+    tense: 'なう'
+    is_active: true
+  -
+    title: '熱海で温泉ハッカソン'
+    user_id: 3 
+    location: '熱海' 
+    image_name: 'nakagawa.png'
+    date_time: '2013-12-20 13:00'
+    tense: '今日'
+    is_active: true
+  -
+    title: '映画見に行きませんか?'
+    user_id: 8 
+    location: '梅田' 
+    image_name: 'hayashi.png'
+    date_time: '2013-12-21 13:00'
+    tense: '明日'
+    is_active: true
+  -
+    title: '村田の家で宅飲み'
+    user_id: 5 
+    location: '未定' 
+    image_name: 'murata.png'
+    date_time: '2013-12-25 13:00'
+    tense: '明日以降'
+    is_active: true
+  -
+    title: 'クリスマスハッカソン'
+    user_id: 9 
+    location: 'Campusオフィス' 
+    image_name: 'asano.png'
+    date_time: '2013-12-26 13:00'
+    tense: 'いつでも'
+    is_active: true

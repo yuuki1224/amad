@@ -6,47 +6,39 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :friends
-  has_many :group_users, :class_name => 'Group::GroupUser'
-  has_many :groups, :class_name => 'Group', through: :group_users, :source => :group
-  attr_accessible :group_ids
-
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
-  attr_accessible :name, :image_name, :uid, :password, :email, :access_token, :occupation, :comad_id, :description
+  attr_accessible :name, :image_name, :uid, :password, :email, :access_token, :occupation, :comad_id, :description, :organization
 
-  def get_comad_users
-    facebook_friends = self.get_friends
-    comad_users = []
+  has_many :from_friend_relations, :foreign_key => "user_id", :class_name => "User::Friend"
+  has_many :to_friend_relations, :foreign_key => "friend_user_id", :class_name => "User::Friend"
 
-    facebook_friends.each do |friend|
-      is_comad_user = User.confirm_using_comad(friend['id'])
-      if is_comad_user
-        comad_users << is_comad_user
-      end
+  # has_many :from_friends, :through => :from_friend_relations, :source => :friend_user
+  has_many :friends, :through => :from_friend_relations, :source => :friend_user
+  has_many :to_friends, :through => :to_friend_relations, :source => :user
+
+  has_many :comads
+
+  # facebook友達かつコマともでない人一覧
+  def acquaintances 
+    fb_friends_uids = []
+    self.fb_friends.each do |friend|
+      fb_friends_uids << friend['id']
     end
-    return comad_users
+    user_in_fb_friends = User.where(:uid => fb_friends_uids).to_a
+    self.friends.each do |friend|
+      user_in_fb_friends.delete(friend)
+    end
+    user_in_fb_friends
   end
 
-  def get_friends
-    access_token = self.access_token
-    graph = Koala::Facebook::API.new(access_token)
-    friends = graph.get_connections("me", "friends")
+  # facebookの友達一覧
+  def fb_friends
+    graph = Koala::Facebook::API.new(self.access_token)
+    graph.get_connections("me", "friends")
   end
 
-  def update_profile(name, comad_id, occupation, detail,
-                     question1, question2, question3, question4)
-    self.name = name
-    self.comad_id = comad_id
-    self.occupation = occupation
-    self.description = detail
-    self.question1 = question1
-    self.question2 = question2
-    self.question3 = question3
-    self.question4 = question4
-    self.save
-  end
-
+  # facebookから返ってきたparamsを元にユーザー生成
   def self.find_for_facebook_oauth(auth)
     user = User.where(:uid => auth.uid).first
     unless user
@@ -74,16 +66,12 @@ class User < ActiveRecord::Base
     user
   end
 
-  def self.confirm_using_comad(id)
-    comad_user = User.where(:uid => id).first
-    comad_user.presence
-  end
-
+  # userインスタンスをjsonにする
   def self.to_json(user)
     raise ActiveModel::Errors.new(self) unless user.class == User
     user_hash = {:id => user.id,
                  :name => user.name,
-                 :comadId => user.comad_id,
+                 :comad_id => user.comad_id,
                  :occupation => user.occupation,
                  :detail => user.description,
                  :image_name => user.image_name}

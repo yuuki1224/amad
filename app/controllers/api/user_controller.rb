@@ -1,25 +1,25 @@
 class Api::UserController < ApplicationController
   def get_add_friends
-    comad_users = @user.get_comad_users
-    friends = @user.get_friends
-    render :json => friends
-  end
-
-  def update_settings
-    binding.pry
+    comad_users = @user.acquaintances
+    render :json => comad_users 
   end
 
   def update_profile
-    comad_id = params[:comadId]
-    name = params[:name]
-    occupation = params[:occupation]
-    detail = params[:detail]
-    question1 = params[:question1]
-    question2 = params[:question2]
-    question3 = params[:question3]
-    question4 = params[:question4]
-    @user.update_profile(name, comad_id, occupation, detail,
-                         question1, question2, question3, question4)
+    @user.update_attributes(
+      :name => params[:name],
+      :comad_id => params[:comad_id],
+      :occupation => params[:occupation],
+      :description => params[:description],
+      :organization => params[:organization]
+    )
+    render :json => @user
+  end
+
+  def update_image
+    if File.exist?("./public/images/profile/" + @user.image_name)
+      FileUtils.rm("./public/images/profile/" + @user.image_name)
+    end
+    FileUtils.cp(params["profileImage"].tempfile.path, "./public/images/profile/" + @user.image_name)
     render :json => @user
   end
 
@@ -32,9 +32,16 @@ class Api::UserController < ApplicationController
   def update_mail
   end
 
+  def update_settings
+  end
+
   def find_user
     comad_id = params[:comad_id]
     @comad_user = User.find_by_comad_id(comad_id)
-    render :json => @comad_user
+    if @user.friends.include?(@comad_user) || @user.eql?(@comad_user)
+      render :json => nil
+    else
+      render :json => @comad_user
+    end
   end
 end

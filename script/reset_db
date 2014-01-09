@@ -1,0 +1,17 @@
+#!/bin/sh
+set -x
+
+zeus rake db:drop
+
+zeus rake db:create
+
+zeus rake db:migrate
+
+zeus rake db:seed
+
+# load test data to development database
+
+# rake db:fixtures:load FIXTURES_PATH=spec/fixtures
+
+# rake db:test:prepare
+
